@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Event handling</title>
+  
+  <script src="../js/vue.global.js"></script>
+  <!--<script src="https://unpkg.com/vue@next"></script>-->
+  
+  <!--https://v3.cn.vuejs.org/guide/introduction.html#%E5%A4%84%E7%90%86%E7%94%A8%E6%88%B7%E8%BE%93%E5%85%A5-->
+  
+  <!--为了让用户和应用进行交互，我们可以用 v-on 指令添加一个事件监听器，通过它调用在实例中定义的方法-->
+
+</head>
+
+<body>
+
+<div id="event-handling">
+  <p>{{ message }}</p>
+  <button v-on:click="reverseMessage">反转 Message</button>
+</div>
+
+</body>
+
+<!--suppress ES6ModulesDependencies -->
+<script>
+
+  const EventHandling = {
+    data() {
+      return {
+        message: 'Hello Vue.js!'
+      }
+    },
+    methods: {
+      // 反转字符串信息
+      reverseMessage() {
+        this.message = this.message
+            .split('')
+            .reverse()
+            .join('')
+      }
+    }
+  }
+
+  Vue.createApp(EventHandling).mount('#event-handling')
+
+</script>
+
+</html>

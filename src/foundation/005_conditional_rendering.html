@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Conditional rendering</title>
+
+  <script src="../js/vue.global.js"></script>
+  <!--<script src="https://unpkg.com/vue@next"></script>-->
+  
+  <!--https://v3.cn.vuejs.org/guide/introduction.html#%E6%9D%A1%E4%BB%B6%E4%B8%8E%E5%BE%AA%E7%8E%AF-->
+  
+  <!--控制切换一个元素是否显示也相当简单-->
+  <!--不仅可以把数据绑定到 DOM 文本或 attribute，还可以绑定到 DOM 的结构。-->
+  <!--此外，Vue 也提供一个强大的过渡效果系统，可以在 Vue 插入/更新/移除元素时自动应用过渡效果-->
+  
+</head>
+<body>
+
+<div id="conditional-rendering">
+  <span v-if="seen">现在你看到我了</span>
+</div>
+
+</body>
+
+<!--suppress ES6ModulesDependencies -->
+<script>
+
+  const ConditionalRendering = {
+    data() {
+      return {
+        seen: true
+      }
+    }
+  }
+  
+  Vue.createApp(ConditionalRendering).mount('#conditional-rendering')
+
+</script>
+
+</html>

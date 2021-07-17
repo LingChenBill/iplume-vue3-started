@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bind attribute</title>
+  
+  <!--v-bind attribute 被称为指令。指令带有前缀 v-，以表示它们是 Vue 提供的特殊 attribute。-->
+  <!--可能你已经猜到了，它们会在渲染的 DOM 上应用特殊的响应式行为。-->
+  <!--在这里，该指令的意思是：“将这个元素节点的 title attribute 和当前活跃实例的 message property 保持一致-->
+  
+  <script src="../js/vue.global.js"></script>
+  <!--<script src="https://unpkg.com/vue@next"></script>-->
+  <!--https://v3.cn.vuejs.org/guide/introduction.html#%E5%A3%B0%E6%98%8E%E5%BC%8F%E6%B8%B2%E6%9F%93-->
+
+</head>
+<body>
+
+  <div id="bind-attribute">
+    <span v-bind:title="message">
+      鼠标悬停几秒钟查看此处动态绑定的提示信息！
+    </span>
+  </div>
+
+</body>
+
+<!--suppress ES6ModulesDependencies -->
+<script>
+
+  const AttributeBinding = {
+    data() {
+      return {
+        message: 'You loaded this page on ' + new Date().toLocaleString()
+      }
+    }
+  }
+
+  Vue.createApp(AttributeBinding).mount('#bind-attribute')
+
+</script>
+
+</html>
