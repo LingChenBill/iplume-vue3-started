@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Component todo item</title>
+
+  <script src="../js/vue.global.js"></script>
+  <!--<script src="https://unpkg.com/vue@next"></script>-->
+  
+  <!--https://v3.cn.vuejs.org/guide/introduction.html#%E7%BB%84%E4%BB%B6%E5%8C%96%E5%BA%94%E7%94%A8%E6%9E%84%E5%BB%BA-->
+  
+  <!--组件系统是 Vue 的另一个重要概念，因为它是一种抽象，允许我们使用小型、独立和通常可复用的组件构建大型应用-->
+  <!--在 Vue 中，组件本质上是一个具有预定义选项的实例。-->
+  <!--在 Vue 中注册组件很简单：如对 App 对象所做的那样创建一个组件对象，并将其定义在父级组件的 components 选项中-->
+  
+</head>
+<body>
+
+<div id="todo-item">
+  <ol>
+    <todo-item></todo-item>
+  </ol>
+</div>
+
+</body>
+
+<!--suppress ES6ModulesDependencies -->
+<script>
+
+  const TodoList = {}
+  
+  const app = Vue.createApp(TodoList)
+  
+  // 定义名为todo-item的新组件
+  app.component('todo-item', {
+    template: `<li>This is todo</li>`
+  })
+  
+  app.mount('#todo-item')
+
+</script>
+
+</html>

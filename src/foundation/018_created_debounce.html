@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Created debounce</title>
+
+  <script src="../js/vue.global.js"></script>
+  <!--<script src="https://unpkg.com/vue@next"></script>-->
+  
+  <script src="../js/lodash.js"></script>
+  
+  <!--https://v3.cn.vuejs.org/guide/data-methods.html#%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81-->
+  
+  <!--这种方法对于可复用组件有潜在的问题，因为它们都共享相同的防抖函数-->
+  <!--为了使组件实例彼此独立，可以在生命周期钩子的 created 里添加该防抖函数-->
+
+</head>
+<body>
+
+<div id="app" style="height:150px;line-height:150px;text-align:center; color: #fff;background-color:#ccc;font-size:80px;">
+  <save-button></save-button>
+</div>
+
+</body>
+
+<!--suppress ES6ModulesDependencies -->
+<script>
+
+  const Debounce = {}
+  
+  const app = Vue.createApp(Debounce)
+  
+  app.component('save-button', {
+    created() {
+      // 用lodash的防抖函数
+      this.debouncedClick = _.debounce(this.click, 1000)
+    },
+    unmount() {
+      // 移除组件时，取消定时器
+      this.debouncedClick.cancel()
+    },
+    methods: {
+      click() {
+        alert('debounced')
+      }
+    },
+    template: `
+      <button @click="debouncedClick">Save</button>
+    `
+  })
+  
+  app.mount('#app')
+  
+</script>
+
+</html>

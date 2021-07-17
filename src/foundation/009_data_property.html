@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Component data property</title>
+
+  <script src="../js/vue.global.js"></script>
+  <!--<script src="https://unpkg.com/vue@next"></script>-->
+  
+  <!--https://v3.cn.vuejs.org/guide/instance.html#%E7%BB%84%E4%BB%B6%E5%AE%9E%E4%BE%8B-property-->
+  
+  <!--data property。在 data 中定义的 property 是通过组件实例暴露的-->
+  
+</head>
+<body>
+
+<div id="app"></div>
+
+</body>
+
+<!--suppress ES6ModulesDependencies -->
+<script>
+
+  const app = Vue.createApp({
+    data() {
+      return {
+        count: 4
+      }
+    }
+  })
+  
+  const vm = app.mount('#app')
+  
+  alert(vm.count)
+
+</script>
+
+</html>

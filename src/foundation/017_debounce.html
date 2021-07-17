@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Debounce</title>
+
+  <script src="../js/vue.global.js"></script>
+  <!--<script src="https://unpkg.com/vue@next"></script>-->
+  <script src="../js/lodash.js"></script>
+  
+  <!--https://v3.cn.vuejs.org/guide/data-methods.html#%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81-->
+  
+  <!--Vue 没有内置支持防抖和节流，但可以使用 Lodash 等库来实现-->
+  <!--如果某个组件仅使用一次，可以在 methods 中直接应用防抖-->
+
+</head>
+<body>
+
+<div id="app" style="height:150px;line-height:150px;text-align:center; color: #fff;background-color:#ccc;font-size:80px;">
+  <button @click="click">点我</button>
+</div>
+
+</body>
+
+<!--suppress ES6ModulesDependencies -->
+<script>
+
+  Vue.createApp({
+    methods: {
+      click: _.debounce(function() {
+        alert('checked')
+      }, 1000)
+    }
+  }).mount('#app')
+
+</script>
+
+</html>

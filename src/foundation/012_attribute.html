@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Attribute</title>
+
+  <script src="../js/vue.global.js"></script>
+  <!--<script src="https://unpkg.com/vue@next"></script>-->
+  
+  <!--https://v3.cn.vuejs.org/guide/template-syntax.html#attribute-->
+  
+  <!--Mustache 语法不能在 HTML attribute 中使用，然而，可以使用 v-bind 指令-->
+  <!--如果绑定的值是 null 或 undefined，那么该 attribute 将不会被包含在渲染的元素上-->
+  
+  <!--对于布尔 attribute (它们只要存在就意味着值为 true)-->
+  
+</head>
+<body>
+
+<div id="app">
+  <div v-bind:id="dynamicId">Dynamic ID: {{ dynamicId }}</div>
+  
+  <button v-bind:disabled="isButtonDisabled">点我</button>
+  
+</div>
+
+</body>
+
+<!--suppress ES6ModulesDependencies -->
+<script>
+  
+  const AttributeVBind = {
+    data() {
+      return {
+        // dynamicId: undefined,
+        // dynamicId: null,
+        dynamicId: 'appId',
+        // isButtonDisabled: false
+        // isButtonDisabled: ''
+        isButtonDisabled: true
+      }
+    }
+  }
+  
+
+  Vue.createApp(AttributeVBind).mount('#app')
+
+</script>
+
+</html>

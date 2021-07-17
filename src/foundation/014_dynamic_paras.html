@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dynamic parameter</title>
+
+  <script src="../js/vue.global.js"></script>
+  <!--<script src="https://unpkg.com/vue@next"></script>-->
+  
+  <!--https://v3.cn.vuejs.org/guide/template-syntax.html#%E5%8A%A8%E6%80%81%E5%8F%82%E6%95%B0-->
+  
+  <!--指令参数中使用 JavaScript 表达式，方法是用方括号括起来,必须使用 小写 -->
+  <!--attributeName 会被作为一个 JavaScript 表达式进行动态求值，求得的值将会作为最终的参数来使用-->
+  
+</head>
+<body>
+
+<div id="app">
+  <a v-bind:[myattributename]="url">This is a url: {{ url }}</a>
+  
+  <br/>
+  
+  <button v-on:[myeventname]="num = num + 1">{{ num }}</button>
+</div>
+
+
+</body>
+
+<!--suppress ES6ModulesDependencies, ES6ShorthandObjectProperty -->
+<script>
+
+  const DynamicParameter = {
+    data() {
+      return {
+        myattributename: 'href',
+        myeventname: 'click',
+        num: 0,
+        url: 'https://www.baidu.com'
+      }
+    }
+  }
+  
+  Vue.createApp(DynamicParameter).mount('#app')
+
+</script>
+
+</html>

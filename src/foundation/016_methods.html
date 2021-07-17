@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Methods</title>
+
+  <script src="../js/vue.global.js"></script>
+  <!--<script src="https://unpkg.com/vue@next"></script>-->
+  
+  <!--https://v3.cn.vuejs.org/guide/data-methods.html#%E6%96%B9%E6%B3%95-->
+  
+  <!--methods 选项向组件实例添加方法，它应该是一个包含所需方法的对象-->
+  
+  <!--Vue 自动为 methods 绑定 this，以便于它始终指向组件实例-->
+  <!--这将确保方法在用作事件监听或回调时保持正确的 this 指向-->
+  <!--在定义 methods 时应避免使用箭头函数，因为这会阻止 Vue 绑定恰当的 this 指向-->
+  
+  <!--这些 methods 和组件实例的其它所有 property 一样可以在组件的模板中被访问。在模板中，它们通常被当做事件监听使用-->
+  
+  <!--也可以直接从模板中调用方法。就像下一章节即将看到的，通常换做计算属性会更好-->
+  <!--但是，在计算属性不可行的情况下，使用方法可能会很有用。你可以在模板支持 JavaScript 表达式的任何地方调用方法-->
+  
+</head>
+<body>
+
+<div id="app">
+  
+  <!--<button v-on:click="increment">Up vote</button>-->
+  <button @click="increment">Up vote</button>
+  
+  <br />
+  
+  <span :title="toTitleDate(date)">
+    {{ date }}
+  </span>
+  
+</div>
+
+</body>
+
+<!--suppress ES6ModulesDependencies -->
+<script>
+
+  const app = Vue.createApp({
+    data() {
+      return {
+        count: 4,
+        date: new Date().toLocaleString()
+      }
+    },
+    methods: {
+      increment() {
+        this.count++
+        alert(this.count)
+      },
+      toTitleDate(date) {
+        return date
+      }
+    }
+  })
+  
+  const vm = app.mount('#app')
+  
+  alert(vm.count)
+  
+  vm.increment()
+  
+  alert(vm.count)
+  
+</script>
+
+</html>
