@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Html class</title>
+
+  <script src="../js/vue.global.js"></script>
+  <!--<script src="https://unpkg.com/vue@next"></script>-->
+
+  <!--https://v3.cn.vuejs.org/guide/class-and-style.html#%E5%AF%B9%E8%B1%A1%E8%AF%AD%E6%B3%95-->
+
+  <!--可以传给 :class (v-bind:class 的简写) 一个对象，以动态地切换 class-->
+  <!--语法表示 active 这个 class 存在与否将取决于数据 property isActive 的 truthiness。-->
+  <!--你可以在对象中传入更多字段来动态切换多个 class。此外，:class 指令也可以与普通的 class attribute 共存-->
+
+</head>
+<body>
+
+<div id="html-class">
+  <div
+    class="static"
+    :class="{ active: isActive, 'text-danger': hasError }"></div>
+</div>
+
+</body>
+
+<!--suppress ES6ModulesDependencies -->
+<script>
+
+  Vue.createApp({
+    data() {
+      return {
+        isActive: true,
+        hasError: false
+        // hasError: true
+      }
+    }
+  }).mount('#html-class')
+
+</script>
+
+</html>

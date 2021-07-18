@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Class component attrs</title>
+
+  <script src="../js/vue.global.js"></script>
+  <!--<script src="https://unpkg.com/vue@next"></script>-->
+
+  <!--https://v3.cn.vuejs.org/guide/class-and-style.html#%E5%9C%A8%E7%BB%84%E4%BB%B6%E4%B8%8A%E4%BD%BF%E7%94%A8-->
+
+  <!--组件有多个根元素，你需要定义哪些部分将接收这个类。可以使用 $attrs 组件属性执行此操作-->
+
+</head>
+<body>
+
+<div id="app">
+  <my-component class="baz foo"></my-component>
+  <my-component></my-component>
+</div>
+
+</body>
+
+<!--suppress ES6ModulesDependencies -->
+<script>
+
+  const app = Vue.createApp({})
+
+  app.component('my-component', {
+    template: `
+      <p :class="$attrs.class">Hi Class</p>
+      <span>This is a child component</span>
+    `
+  })
+
+  app.mount('#app')
+
+</script>
+
+</html>

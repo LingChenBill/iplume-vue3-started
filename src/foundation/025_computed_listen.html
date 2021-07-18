@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Computed listen</title>
+
+  <script src="../js/vue.global.js"></script>
+  <!--<script src="https://unpkg.com/vue@next"></script>-->
+
+  <!--https://v3.cn.vuejs.org/guide/computed.html#%E8%AE%A1%E7%AE%97%E5%B1%9E%E6%80%A7-vs-%E4%BE%A6%E5%90%AC%E5%99%A8-->
+
+</head>
+<body>
+
+<div id="computed-listen">
+  {{ fullName }}
+</div>
+
+</body>
+
+<!--suppress ES6ModulesDependencies -->
+<script>
+
+  const vm = Vue.createApp({
+    data() {
+      return {
+        firstName: 'Foo',
+        lastName: 'Bar'
+      }
+    },
+    computed: {
+      fullName() {
+        return this.firstName + ' ' + this.lastName
+      }
+    }
+  }).mount('#computed-listen')
+
+</script>
+
+</html>

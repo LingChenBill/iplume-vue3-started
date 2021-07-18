@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Html class arrays</title>
+
+  <script src="../js/vue.global.js"></script>
+  <!--<script src="https://unpkg.com/vue@next"></script>-->
+
+  <!--https://v3.cn.vuejs.org/guide/class-and-style.html#%E5%AF%B9%E8%B1%A1%E8%AF%AD%E6%B3%95-->
+
+  <!--把一个数组传给 :class，以应用一个 class 列表-->
+  <!--根据条件切换列表中的 class，可以使用三元表达式-->
+  <!--当有多个条件 class 时这样写有些繁琐。所以在数组语法中也可以使用对象语法-->
+
+</head>
+<body>
+
+<div id="html-class">
+  <div
+    class="static"
+    :class="[activeClass, errorClass]"></div>
+
+  <div
+    class="static"
+    :class="[isActive ? activeClass : '', errorClass]"></div>
+
+  <div
+    class="static"
+    :class="[{ active: isActive }, errorClass]"></div>
+</div>
+
+</body>
+
+<!--suppress ES6ModulesDependencies -->
+<script>
+
+  Vue.createApp({
+    data() {
+      return {
+        activeClass: 'active',
+        errorClass: 'text-danger',
+        isActive: true
+      }
+    }
+  }).mount('#html-class')
+
+</script>
+
+</html>

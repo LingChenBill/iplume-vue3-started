@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Watch</title>
+
+  <script src="../js/vue.global.js"></script>
+  <script src="../js/axios.min.js"></script>
+  <!--<script src="https://unpkg.com/vue@next"></script>-->
+
+  <!--https://v3.cn.vuejs.org/guide/computed.html#%E4%BE%A6%E5%90%AC%E5%99%A8-->
+
+  <!--虽然计算属性在大多数情况下更合适，但有时也需要一个自定义的侦听器。-->
+  <!--这就是为什么 Vue 通过 watch 选项提供了一个更通用的方法，来响应数据的变化。-->
+  <!--当需要在数据变化时执行异步或开销较大的操作时，这个方式是最有用的-->
+
+  <!--使用 watch 选项允许我们执行异步操作 (访问一个 API)，限制我们执行该操作的频率，-->
+  <!--并在我们得到最终结果前，设置中间状态。这些都是计算属性无法做到的-->
+
+</head>
+<body>
+
+<div id="watch-example">
+  <p>
+    Ask a yes/no question:
+    <input v-model="question" />
+  </p>
+  <p>{{ answer }}</p>
+</div>
+
+</body>
+
+<!--suppress ES6ModulesDependencies -->
+<script>
+
+  const WatchExampleVM = Vue.createApp({
+    data() {
+      return {
+        question: '',
+        answer: 'Questions usually contain a question mark. ;-)'
+      }
+    },
+    watch: {
+      question(newQuestion, oldQuestion) {
+        if (newQuestion.indexOf('?') > -1) {
+          this.getAnswer()
+        }
+      }
+    },
+    methods: {
+      getAnswer() {
+        this.answer = 'Think...'
+        axios.get('https://yesno.wtf/api')
+          .then(response => {
+            this.answer = response.data.answer
+          })
+          .catch(error => {
+            this.answer= 'Error! Could not reach the API.' + error
+          })
+      }
+    }
+  }).mount('#watch-example')
+
+</script>
+
+</html>

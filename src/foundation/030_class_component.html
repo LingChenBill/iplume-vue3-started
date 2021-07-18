@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Class component</title>
+
+  <script src="../js/vue.global.js"></script>
+  <!--<script src="https://unpkg.com/vue@next"></script>-->
+
+  <!--https://v3.cn.vuejs.org/guide/class-and-style.html#%E5%9C%A8%E7%BB%84%E4%BB%B6%E4%B8%8A%E4%BD%BF%E7%94%A8-->
+
+  <!--当你在带有单个根元素的自定义组件上使用 class attribute 时，这些 class 将被添加到该元素中。此元素上的现有 class 将不会被覆盖-->
+  <!--对于带数据绑定 class 也同样适用-->
+
+</head>
+<body>
+
+<div id="app">
+  <my-component class="baz boo"></my-component>
+
+  <my-component :class="{ active: isActive }"></my-component>
+</div>
+
+</body>
+
+<!--suppress ES6ModulesDependencies -->
+<script>
+
+  const app = Vue.createApp({
+    data() {
+      return {
+        isActive: true
+      }
+    }
+  })
+
+  app.component('my-component', {
+    template: `<p class="foo bar">Hi Class</p>`
+  })
+
+  app.mount('#app')
+
+</script>
+
+</html>

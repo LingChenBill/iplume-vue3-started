@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Style vendor prefix</title>
+
+  <script src="../js/vue.global.js"></script>
+  <!--<script src="https://unpkg.com/vue@next"></script>-->
+
+  <!--https://v3.cn.vuejs.org/guide/class-and-style.html#%E5%AF%B9%E8%B1%A1%E8%AF%AD%E6%B3%95-2-->
+
+  <!--在 :style 中使用需要一个 vendor prefix (浏览器引擎前缀) 的 CSS property 时，Vue 将自动侦测并添加相应的前缀-->
+  <!--Vue 是通过运行时检测来确定哪些样式的 property 是被当前浏览器支持的-->
+  <!--如果浏览器不支持某个 property，Vue 会进行多次测试以找到支持它的前缀-->
+
+  <!--可以为 style 绑定中的 property 提供一个包含多个值的数组，常用于提供多个带前缀的值-->
+
+</head>
+<body>
+
+<div id="app">
+
+  <div :style="{ display: ['-webkit-box', '-ms-flexbox', 'flex'] }">
+    绑定内联样式
+  </div>
+
+</div>
+
+</body>
+
+<!--suppress ES6ModulesDependencies -->
+<script>
+
+  Vue.createApp({}).mount('#app')
+
+</script>
+
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Style</title>
+
+  <script src="../js/vue.global.js"></script>
+  <!--<script src="https://unpkg.com/vue@next"></script>-->
+
+  <!--https://v3.cn.vuejs.org/guide/class-and-style.html#%E5%AF%B9%E8%B1%A1%E8%AF%AD%E6%B3%95-2-->
+
+  <!--:style 的对象语法十分直观——看着非常像 CSS，但其实是一个 JavaScript 对象。-->
+  <!--CSS property 名可以用驼峰式 (camelCase) 或短横线分隔 (kebab-case，记得用引号括起来) 来命名-->
+
+  <!--直接绑定到一个样式对象通常更好，这会让模板更清晰-->
+  <!--:style 的数组语法可以将多个样式对象应用到同一个元素上-->
+</head>
+<body>
+
+<div id="app">
+
+  <div :style="{ color: activeColor, fontSize: fontSize + 'px' }">
+    绑定内联样式
+  </div>
+
+  <div :style="styleObject">
+    绑定样式对象
+  </div>
+
+  <div :style="[baseStyles, overridingStyles]">
+    数组语法
+  </div>
+</div>
+
+</body>
+
+<!--suppress ES6ModulesDependencies -->
+<script>
+
+  Vue.createApp({
+    data() {
+      return {
+        activeColor: 'red',
+        fontSize: 30,
+        styleObject: {
+          color: 'green',
+          fontSize: '13px'
+        },
+        baseStyles: {
+          color: 'yellow'
+        },
+        overridingStyles: {
+          fontSize: '20px'
+        }
+      }
+    }
+  }).mount('#app')
+
+</script>
+
+</html>
