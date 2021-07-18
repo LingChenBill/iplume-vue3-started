@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Computed basics</title>
+
+  <script src="../js/vue.global.js"></script>
+  <!--<script src="https://unpkg.com/vue@next"></script>-->
+
+  <!--https://v3.cn.vuejs.org/guide/computed.html#%E8%AE%A1%E7%AE%97%E5%B1%9E%E6%80%A7-->
+
+  <!--模板内的表达式非常便利，但是设计它们的初衷是用于简单运算的。-->
+  <!--在模板中放入太多的逻辑会让模板过重且难以维护-->
+
+  <!--模板不再是简单的和声明性的。你必须先看一下它，然后才能意识到它执行的计算取决于 author.books。-->
+  <!--如果要在模板中多次包含此计算，则问题会变得更糟-->
+  <!--对于任何包含响应式数据的复杂逻辑，你都应该使用计算属性-->
+
+</head>
+<body>
+
+<div id="computed-basics">
+  <p>Has published books:</p>
+  <span>{{ author.books.length > 0 ? 'YES': 'NO' }}</span>
+</div>
+
+</body>
+
+<!--suppress ES6ModulesDependencies -->
+<script>
+
+Vue.createApp({
+  data() {
+    return {
+      author: {
+        name: 'John Doe',
+        books: [
+          'Vue 2 - Advanced Guide',
+          'Vue 3 - Basic Guide',
+          'Vue 4 - The Mystery'
+        ]
+      }
+    }
+  }
+}).mount('#computed-basics')
+
+</script>
+
+</html>
