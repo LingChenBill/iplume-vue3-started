@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Arrays computed filter</title>
+
+  <script src="../js/vue.global.js"></script>
+  <!--<script src="https://unpkg.com/vue@next"></script>-->
+
+  <!--https://v3.cn.vuejs.org/guide/list.html#%E5%8F%98%E6%9B%B4%E6%96%B9%E6%B3%95-->
+
+  <!--显示过滤/排序后的结果-->
+  <!--我们想要显示一个数组经过过滤或排序后的版本，而不实际变更或重置原始数据。在这种情况下，可以创建一个计算属性，来返回过滤或排序后的数组-->
+
+  <!--在计算属性不适用的情况下 (例如，在嵌套 v-for 循环中) 你可以使用一个方法-->
+
+  <!--在 v-for 里使用值的范围-->
+  <!--v-for 也可以接受整数。在这种情况下，它会把模板重复对应次数-->
+
+  <style type="text/css">
+    .demo {
+      font-family: sans-serif;
+      border: 1px solid #eee;
+      border-radius: 2px;
+      padding: 20px 30px;
+      margin-top: 1em;
+      margin-bottom: 40px;
+      user-select: none;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+<div id="arrays_computed_filter">
+
+  <li v-for="n in evenNumbers" :key="n">
+    {{ n }}
+  </li>
+
+  <ul v-for="numbers in sets">
+    <li v-for="n in even(numbers)" :key="n">
+      {{ n }}
+    </li>
+  </ul>
+
+  <div id="range" class="demo">
+    <span v-for="n in 10" :key="n">
+      {{ n }}
+    </span>
+  </div>
+
+</div>
+
+</body>
+
+<!--suppress ES6ModulesDependencies -->
+<script>
+
+  Vue.createApp({
+    data() {
+      return {
+        numbers: [1, 2, 3, 4, 5],
+        sets: [
+          [1, 2, 3, 4, 5],
+          [6, 7, 8, 9, 10]
+        ]
+      }
+    },
+    methods: {
+      even(numbers) {
+        return numbers.filter(
+          number => number % 2 === 0
+        )
+      }
+    },
+    computed: {
+      evenNumbers() {
+        return this.numbers.filter(
+          number => number % 2 === 0
+        )
+      }
+    }
+  }).mount('#arrays_computed_filter')
+
+</script>
+
+</html>

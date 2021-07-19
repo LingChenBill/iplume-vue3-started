@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>V-if</title>
+
+  <script src="../js/vue.global.js"></script>
+  <!--<script src="https://unpkg.com/vue@next"></script>-->
+
+  <!--https://v3.cn.vuejs.org/guide/conditional.html#v-if-->
+
+  <!--v-if 指令用于条件性地渲染一块内容。这块内容只会在指令的表达式返回 truthy 值的时候被渲染-->
+  <!--也可以用 v-else 添加一个“else 块”-->
+  <!--v-else 元素必须紧跟在带 v-if 或者 v-else-if 的元素的后面，否则它将不会被识别-->
+
+  <!--在 <template> 元素上使用 v-if 条件渲染分组-->
+  <!--因为 v-if 是一个指令，所以必须将它添加到一个元素上。但是如果想切换多个元素呢？-->
+  <!--此时可以把一个 <template> 元素当做不可见的包裹元素，并在上面使用 v-if。最终的渲染结果将不包含 <template> 元素-->
+
+  <!--v-else-if，顾名思义，充当 v-if 的“else-if 块”，并且可以连续使用-->
+  <!--与 v-else 的用法类似，v-else-if 也必须紧跟在带 v-if 或者 v-else-if 的元素之后-->
+
+</head>
+<body>
+
+<div id="app">
+
+  <h1 v-if="awesome">Vue is awesome!</h1>
+  <h1 v-else>Oh no!</h1>
+
+  <template v-if="ok">
+    <h1>Title</h1>
+    <p>Paragraph 1</p>
+    <p>Paragraph 2</p>
+  </template>
+
+  <div v-if="Math.random() > 0.5">
+    Now you see me
+  </div>
+  <div v-else>
+    Now you don't
+  </div>
+
+  <div v-if="type === 'A'">
+    A
+  </div>
+  <div v-else-if="type === 'B'">
+    B
+  </div>
+  <div v-else-if="type === 'C'">
+    C
+  </div>
+  <div v-else>
+    Not A/B/C
+  </div>
+
+</div>
+
+</body>
+
+<!--suppress ES6ModulesDependencies -->
+<script>
+
+  Vue.createApp({
+    data() {
+      return {
+        awesome: true,
+        ok: true,
+        type: 'C'
+      }
+    }
+  }).mount('#app')
+
+</script>
+
+</html>

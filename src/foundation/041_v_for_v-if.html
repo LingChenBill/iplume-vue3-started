@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>V-for_v-if</title>
+
+  <script src="../js/vue.global.js"></script>
+  <!--<script src="https://unpkg.com/vue@next"></script>-->
+
+  <!--https://v3.cn.vuejs.org/guide/list.html#v-for-%E4%B8%8E-v-if-%E4%B8%80%E5%90%8C%E4%BD%BF%E7%94%A8-->
+
+  <!--注意我们不推荐在同一元素上使用 v-if 和 v-for-->
+  <!--当它们处于同一节点，v-if 的优先级比 v-for 更高，这意味着 v-if 将没有权限访问 v-for 里的变量-->
+  <!--可以把 v-for 移动到 <template> 标签中来修正-->
+
+</head>
+<body>
+
+<div id="v-for-v-if">
+
+  <ul>
+    <template v-for="item in items" :key="item.msg">
+      <li>{{ item.msg }}</li>
+      <li class="divider" role="presentation"></li>
+    </template>
+  </ul>
+
+  <!--<li v-for="todo in todos" v-if="!todo.isComplete">-->
+  <!--  {{ todo.name }}-->
+  <!--</li>-->
+
+  <template v-for="todo in todos" :key="todo.name">
+    <li v-if="todo.isComplete">
+      {{ todo.name }}
+    </li>
+  </template>
+
+</div>
+
+</body>
+
+<!--suppress ES6ModulesDependencies -->
+<script>
+
+  Vue.createApp({
+    data() {
+      return {
+        items: [
+          { msg: '001'},
+          { msg: '002'},
+          { msg: '003'}
+        ],
+        todos: [
+          { isComplete: true, name: 'Foo' },
+          { isComplete: false, name: 'Bar' },
+          { isComplete: true, name: 'Zoo' },
+          { isComplete: true, name: 'Park' }
+        ]
+      }
+    }
+  }).mount('#v-for-v-if')
+
+</script>
+
+</html>

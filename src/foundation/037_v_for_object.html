@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>V-for-object</title>
+
+  <script src="../js/vue.global.js"></script>
+  <!--<script src="https://unpkg.com/vue@next"></script>-->
+
+  <!--https://v3.cn.vuejs.org/guide/list.html#%E5%9C%A8-v-for-%E9%87%8C%E4%BD%BF%E7%94%A8%E5%AF%B9%E8%B1%A1-->
+
+  <!--也可以用 v-for 来遍历一个对象的 property-->
+  <!--你也可以提供第二个的参数为 property 名称 (也就是键名 key)-->
+  <!--还可以用第三个参数作为索引-->
+
+  <!--在遍历对象时，会按 Object.keys() 的结果遍历，但是不能保证它在不同 JavaScript 引擎下的结果都一致-->
+
+  <!--维护状态-->
+  <!--当 Vue 正在更新使用 v-for 渲染的元素列表时，它默认使用“就地更新”的策略。-->
+  <!--如果数据项的顺序被改变，Vue 将不会移动 DOM 元素来匹配数据项的顺序，而是就地更新每个元素，并且确保它们在每个索引位置正确渲染-->
+  <!--这个默认的模式是高效的，但是只适用于不依赖子组件状态或临时 DOM 状态 (例如：表单输入值) 的列表渲染输出。-->
+  <!--为了给 Vue 一个提示，以便它能跟踪每个节点的身份，从而重用和重新排序现有元素，你需要为每项提供一个唯一 key attribute-->
+
+  <!--建议尽可能在使用 v-for 时提供 key attribute，除非遍历输出的 DOM 内容非常简单，或者是刻意依赖默认行为以获取性能上的提升-->
+  <!--不要使用对象或数组之类的非基本类型值作为 v-for 的 key。请用字符串或数值类型的值-->
+
+  <style type="text/css">
+    .demo {
+      font-family: sans-serif;
+      border: 1px solid #eee;
+      border-radius: 2px;
+      padding: 20px 30px;
+      margin-top: 1em;
+      margin-bottom: 40px;
+      user-select: none;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="v-for-object">
+    <ul class="demo">
+      <li v-for="value in myObject">
+        {{ value }}
+      </li>
+    </ul>
+
+    <ul class="demo">
+      <li v-for="(value, name) in myObject">
+        {{ name }}: {{ value }}
+      </li>
+    </ul>
+
+    <ul class="demo">
+      <li v-for="(value, name, index) in myObject" :key="value">
+        {{ index }}. {{ name }}: {{ value }}
+      </li>
+    </ul>
+  </div>
+
+</body>
+
+<!--suppress ES6ModulesDependencies -->
+<script>
+
+  Vue.createApp({
+    data() {
+      return {
+        myObject: {
+          title: 'How to do lists in Vue',
+          author: 'Jane Doe',
+          publishedAt: '2016-04-10'
+        }
+      }
+    }
+  }).mount('#v-for-object')
+
+</script>
+
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Arrays update</title>
+
+  <script src="../js/vue.global.js"></script>
+  <!--<script src="https://unpkg.com/vue@next"></script>-->
+
+  <!--https://v3.cn.vuejs.org/guide/list.html#%E5%8F%98%E6%9B%B4%E6%96%B9%E6%B3%95-->
+
+  <!--Vue 将被侦听的数组的变更方法进行了包裹，所以它们也将会触发视图更新。这些被包裹过的方法包括-->
+  <!--push(), pop(), shift(), unshift(), splice(), sort(), reverse()-->
+</head>
+<body>
+
+<div id="arrays_update">
+
+  <ul>
+    <ol v-for="(item, index) in messages.items">
+      {{ index }} - {{ item.message }}
+    </ol>
+  </ul>
+
+  <button @click="handleClick">点我更新</button>
+
+</div>
+
+</body>
+
+<!--suppress ES6ModulesDependencies -->
+<script>
+
+  Vue.createApp({
+    data() {
+      return {
+        messages: {
+          items: [
+            { message: 'Foo'},
+            { message: 'Zone'}
+          ]
+        }
+      }
+    },
+    methods: {
+      handleClick() {
+        this.messages.items.push({ message: 'Baz' })
+      }
+    }
+  }).mount('#arrays_update')
+
+</script>
+
+</html>
