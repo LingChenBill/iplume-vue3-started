@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Event with method</title>
+
+  <script src="../js/vue.global.js"></script>
+  <!--<script src="https://unpkg.com/vue@next"></script>-->
+
+  <!--https://v3.cn.vuejs.org/guide/events.html#%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%E6%96%B9%E6%B3%95-->
+
+  <!--事件处理方法-->
+  <!--然而许多事件处理逻辑会更为复杂，所以直接把 JavaScript 代码写在 v-on 指令中是不可行的。因此 v-on 还可以接收一个需要调用的方法名称-->
+
+</head>
+<body>
+
+<div id="event-with-method">
+  <button @click="greet">Greet</button>
+</div>
+
+</body>
+
+<!--suppress ES6ModulesDependencies -->
+<script>
+
+  Vue.createApp({
+    data() {
+      return {
+        name: 'Vue.js'
+      }
+    },
+    methods: {
+      greet(event) {
+        // `methods`内部的`this`指向当前活动实例.
+        alert('Hello ' + this.name + '!')
+        // `event`是原生 DOM event.
+        if (event) {
+          alert(event.target.tagName)
+        }
+      }
+    }
+  }).mount('#event-with-method')
+
+</script>
+
+</html>

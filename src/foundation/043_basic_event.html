@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Basic event</title>
+
+  <script src="../js/vue.global.js"></script>
+  <!--<script src="https://unpkg.com/vue@next"></script>-->
+
+  <!--https://v3.cn.vuejs.org/guide/events.html#%E7%9B%91%E5%90%AC%E4%BA%8B%E4%BB%B6-->
+
+  <!--我们可以使用 v-on 指令 (通常缩写为 @ 符号) 来监听 DOM 事件，并在触发事件时执行一些 JavaScript。-->
+  <!--用法为 v-on:click="methodName" 或使用快捷方式 @click="methodName"-->
+</head>
+<body>
+
+<div id="basic-event">
+
+  <button @click="counter += 1">Add 1</button>
+  <p>The button above has been clicked {{ counter }} times.</p>
+</div>
+
+</body>
+
+<!--suppress ES6ModulesDependencies -->
+<script>
+
+  Vue.createApp({
+    data() {
+      return {
+        counter: 0
+      }
+    }
+  }).mount('#basic-event')
+
+</script>
+
+</html>

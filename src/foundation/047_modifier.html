@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Modifier</title>
+
+  <script src="../js/vue.global.js"></script>
+  <!--<script src="https://unpkg.com/vue@next"></script>-->
+
+  <!--https://v3.cn.vuejs.org/guide/events.html#%E4%BA%8B%E4%BB%B6%E4%BF%AE%E9%A5%B0%E7%AC%A6-->
+
+  <!--在事件处理程序中调用 event.preventDefault() 或 event.stopPropagation() 是非常常见的需求。-->
+  <!--尽管我们可以在方法中轻松实现这点，但更好的方式是：方法只有纯粹的数据逻辑，而不是去处理 DOM 事件细节。-->
+  <!--为了解决这个问题，Vue.js 为 v-on 提供了事件修饰符。之前提过，修饰符是由点开头的指令后缀来表示的。-->
+  <!--.stop-->
+  <!--.prevent-->
+  <!--.capture-->
+  <!--.self-->
+  <!--.once-->
+  <!--.passive-->
+
+  <!--使用修饰符时，顺序很重要；相应的代码会以同样的顺序产生。-->
+  <!--因此，用 v-on:click.prevent.self 会阻止所有的点击，而 v-on:click.self.prevent 只会阻止对元素自身的点击-->
+
+</head>
+<body>
+
+<div id="modifier">
+
+  <!--阻止单击事件继续传播.-->
+  <a @click.stop="doThis">Stop doThis</a>
+
+  <!--提交事件不再重载页面.-->
+  <form @submit.prevent="onSubmit">Submit prevent onSubmit</form>
+
+  <!--修饰符可以串联.-->
+  <a @click.stop.prevent="doThat">Stop prevent</a>
+
+  <!--只有修饰符.-->
+  <form @submit.prevent>Submit prevent</form>
+
+  <!--添加事件监听器时使用事件捕获模式.-->
+  <!--即内部元素触发的事件先在此处理,然后才交由内部元素进行处理.-->
+  <div @click.capture="doThis">capture doThis...</div>
+
+  <!--只当在 event.target 是当前元素自身时触发处理函数.-->
+  <!--即事件不是从内部元素触发的.-->
+  <div @click.self="doThat">Self doThat...</div>
+
+  <!--点击事件将只会触发一次.-->
+  <a @click.once="doThis">Once doThis</a>
+
+  <!--滚动事件的默认行为(即滚动行为)将会立即触发.-->
+  <!--而不会等待`onScroll`完成.-->
+  <!--这其中包含`event.preventDefault()`的情况.-->
+  <div @scroll.passive="onScroll">Passive onScroll...</div>
+
+</div>
+
+</body>
+
+<!--suppress ES6ModulesDependencies -->
+<script>
+
+  Vue.createApp({
+    methods: {
+      onSubmit() {
+        alert('OnSubmit')
+      },
+      doThis() {
+        alert('DoThis')
+      },
+      doThat() {
+        alert('DoThat')
+      },
+      onScroll() {
+        alert('OnScroll')
+      }
+    }
+  }).mount('#modifier')
+
+</script>
+
+</html>

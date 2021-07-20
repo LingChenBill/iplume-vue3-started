@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Multi event</title>
+
+  <script src="../js/vue.global.js"></script>
+  <!--<script src="https://unpkg.com/vue@next"></script>-->
+
+  <!--多事件处理器-->
+  <!--事件处理程序中可以有多个方法，这些方法由逗号运算符分隔-->
+
+
+</head>
+<body>
+
+<div id="multi-event">
+  <!--这两个 one() 和 two() 将执行按钮点击事件-->
+  <button @click="one($event), two($event)">
+    Submit
+  </button>
+</div>
+
+</body>
+
+<!--suppress ES6ModulesDependencies -->
+<script>
+
+  Vue.createApp({
+    methods: {
+      one(event) {
+        alert('One ' + event.target.tagName)
+      },
+      two(event) {
+        alert('Two ' + event.target.tagName)
+      }
+    }
+  }).mount('#multi-event')
+
+</script>
+
+</html>

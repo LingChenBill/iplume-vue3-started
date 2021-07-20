@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Keyup</title>
+
+  <script src="../js/vue.global.js"></script>
+  <!--<script src="https://unpkg.com/vue@next"></script>-->
+
+  <!--https://v3.cn.vuejs.org/guide/events.html#%E7%B3%BB%E7%BB%9F%E4%BF%AE%E9%A5%B0%E9%94%AE-->
+
+  <!--在监听键盘事件时，我们经常需要检查详细的按键。Vue 允许为 v-on 或者 @ 在监听键盘事件时添加按键修饰符-->
+  <!--可以直接将 KeyboardEvent.key 暴露的任意有效按键名转换为 kebab-case 来作为修饰符-->
+
+  <!--Vue 为最常用的键提供了别名：-->
+  <!--.enter-->
+  <!--.tab-->
+  <!--.delete (捕获“删除”和“退格”键)-->
+  <!--.esc-->
+  <!--.space-->
+  <!--.up-->
+  <!--.down-->
+  <!--.left-->
+  <!--.right-->
+
+  <!--可以用如下修饰符来实现仅在按下相应按键时才触发鼠标或键盘事件的监听器。-->
+  <!--.ctrl-->
+  <!--.alt-->
+  <!--.shift-->
+  <!--.meta-->
+
+</head>
+<body>
+
+<div id="keyup">
+
+  <!--只有在 `key` 是 `Enter` 时调用 `vm.submit()`-->
+  <input @keyup.enter="submit" />
+
+  <input @keyup.tab="onTab">
+
+  <!--Alt + Enter.-->
+  <input @keyup.alt.enter="clear">
+
+  <!--Ctrl + Click.-->
+  <div @click.ctrl="doSomething">
+    Do something
+  </div>
+
+  <!--有且只有 Ctrl 被按下的时候才触发.-->
+  <button @click.ctrl.exact="onCtrlClick">A</button>
+
+</div>
+
+</body>
+
+<!--suppress ES6ModulesDependencies -->
+<script>
+  Vue.createApp({
+    methods: {
+      submit() {
+        alert('Submit')
+      },
+      onTab() {
+        alert('OnTab')
+      },
+      clear() {
+        alert('Alt Enter')
+      },
+      doSomething() {
+        alert('DoSomething')
+      },
+      onCtrlClick() {
+        alert('OnCtrlClick A')
+      }
+    }
+  }).mount('#keyup')
+
+</script>
+
+</html>

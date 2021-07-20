@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Inline handler</title>
+
+  <script src="../js/vue.global.js"></script>
+  <!--<script src="https://unpkg.com/vue@next"></script>-->
+
+  <!--https://v3.cn.vuejs.org/guide/events.html#%E5%86%85%E8%81%94%E5%A4%84%E7%90%86%E5%99%A8%E4%B8%AD%E7%9A%84%E6%96%B9%E6%B3%95-->
+
+  <!--有时也需要在内联语句处理器中访问原始的 DOM 事件。可以用特殊变量 $event 把它传入方法-->
+
+</head>
+<body>
+
+<div id="inline-handler">
+  <button @click="say('hi')">Say hi</button>
+  <button @click="say('what')">Say what</button>
+
+  <button @click="warn('Form cannot be submitted yet.', $event)">
+    Submit
+  </button>
+</div>
+
+</body>
+
+<!--suppress ES6ModulesDependencies -->
+<script>
+
+  Vue.createApp({
+    methods: {
+      say(message) {
+        alert(message)
+      },
+      warn(message, event) {
+        // 现在可以访问到原生事件.
+        if (event) {
+          event.preventDefault()
+        }
+        alert(message)
+      }
+    }
+  }).mount('#inline-handler')
+
+</script>
+
+</html>
