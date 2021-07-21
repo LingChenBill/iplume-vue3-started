@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Checkbox</title>
+
+  <script src="../js/vue.global.js"></script>
+  <!--<script src="https://unpkg.com/vue@next"></script>-->
+
+  <!--https://v3.cn.vuejs.org/guide/forms.html#%E5%A4%8D%E9%80%89%E6%A1%86-checkbox-->
+
+  <!--单个复选框，绑定到布尔值-->
+</head>
+<body>
+
+<div id="app-checkbox">
+  <input type="checkbox" id="checkbox" v-model="checked" />
+  <label for="checkbox">{{ checked }}</label>
+</div>
+
+</body>
+
+<!--suppress ES6ModulesDependencies -->
+<script>
+
+  Vue.createApp({
+    data() {
+      return {
+        checked: true
+      }
+    }
+  }).mount('#app-checkbox')
+
+</script>
+
+</html>

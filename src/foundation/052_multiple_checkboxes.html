@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Multiple checkboxes</title>
+
+  <script src="../js/vue.global.js"></script>
+  <!--<script src="https://unpkg.com/vue@next"></script>-->
+
+  <!--https://v3.cn.vuejs.org/guide/forms.html#%E5%A4%8D%E9%80%89%E6%A1%86-checkbox-->
+
+  <!--多个复选框，绑定到同一个数组-->
+
+</head>
+<body>
+
+<div id="app-multiple-checkboxes">
+  <input type="checkbox" id="jack" value="Jack" v-model="checkedNames" />
+  <label for="jack">Jack</label>
+  <input type="checkbox" id="john" value="John" v-model="checkedNames" />
+  <label for="john">John</label>
+  <input type="checkbox" id="mike" value="Mike" v-model="checkedNames" />
+  <label for="mike">Mike</label>
+  <br />
+
+  <span>Checked names: {{ checkedNames }}</span>
+</div>
+
+</body>
+
+<!--suppress ES6ModulesDependencies -->
+<script>
+
+  Vue.createApp({
+    data() {
+      return {
+        checkedNames: []
+      }
+    }
+  }).mount('#app-multiple-checkboxes')
+
+</script>
+
+</html>

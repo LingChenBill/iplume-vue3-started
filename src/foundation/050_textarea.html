@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Textarea</title>
+
+  <script src="../js/vue.global.js"></script>
+  <!--<script src="https://unpkg.com/vue@next"></script>-->
+
+  <!--https://v3.cn.vuejs.org/guide/forms.html#%E5%A4%9A%E8%A1%8C%E6%96%87%E6%9C%AC-textarea-->
+
+  <!--在文本区域插值不起作用，应该使用 v-model 来代替-->
+</head>
+<body>
+
+<div id="app-textarea">
+  <span>Multiline message is: </span>
+  <p style="white-space: pre-line;">{{ message }}</p>
+  <br />
+  <p style="white-space: pre-line;">{{ text }}</p>
+  <br />
+  <textarea v-model="message" placeholder="add multiple lines"></textarea>
+
+  <!--bad.-->
+  <textarea> {{ text }}</textarea>
+
+  <!--good.-->
+  <textarea v-model="text"></textarea>
+</div>
+
+</body>
+
+<!--suppress ES6ModulesDependencies -->
+<script>
+
+  Vue.createApp({
+    data() {
+      return {
+        message: '',
+        text: ''
+      }
+    }
+  }).mount('#app-textarea')
+
+</script>
+
+</html>
