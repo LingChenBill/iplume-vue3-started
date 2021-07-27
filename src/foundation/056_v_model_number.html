@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>V-model number</title>
+
+  <script src="../js/vue.global.js"></script>
+  <!--<script src="https://unpkg.com/vue@next"></script>-->
+
+  <!--https://v3.cn.vuejs.org/guide/forms.html#lazy-->
+
+  <!--如果想自动将用户的输入值转为数值类型，可以给 v-model 添加 number 修饰符-->
+
+  <!--如果要自动过滤用户输入的首尾空白字符，可以给 v-model 添加 trim 修饰符-->
+
+</head>
+<body>
+
+<div id="app-number">
+  <input v-model="age" type="number">
+  <br />
+  <span>{{ age }}</span>
+  <br />
+  <input v-model.number="ageNumber" type="number">
+  <br />
+  <span>{{ ageNumber }}</span>
+  <br />
+  <input v-model.trim="msg">
+  <br />
+  <span>{{ msg }}</span>
+</div>
+
+</body>
+
+<!--suppress ES6ModulesDependencies -->
+<script>
+  Vue.createApp({
+    data() {
+      return {
+        age: '18',
+        ageNumber: 18,
+        msg: 'Message'
+      }
+    }
+  }).mount('#app-number')
+
+</script>
+
+</html>

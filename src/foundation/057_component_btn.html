@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Component button</title>
+
+  <script src="../js/vue.global.js"></script>
+  <!--<script src="https://unpkg.com/vue@next"></script>-->
+
+  <!--https://v3.cn.vuejs.org/guide/component-basics.html#%E5%9F%BA%E6%9C%AC%E5%AE%9E%E4%BE%8B-->
+
+  <!--组件是带有名称的可复用实例，在这个例子中是 <button-counter>。我们可以把这个组件作为一个根实例中的自定义元素来使用-->
+
+  <!--可以将组件进行任意次数的复用-->
+
+  <!--当点击按钮时，每个组件都会各自独立维护它的 count。因为你每用一次组件，就会有一个它的新实例被创建-->
+
+</head>
+<body>
+
+<div id="app-component">
+  <button-counter></button-counter>
+  <button-counter></button-counter>
+  <button-counter></button-counter>
+</div>
+
+</body>
+
+<!--suppress ES6ModulesDependencies -->
+<script>
+
+  const app = Vue.createApp({})
+
+  app.component('button-counter', {
+    data() {
+      return {
+        counter: 0
+      }
+    },
+    template: `
+      <button @click="counter++">
+        You clicked me {{ counter }} times.
+      </button>
+    `
+  })
+
+  app.mount('#app-component')
+
+</script>
+
+</html>

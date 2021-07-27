@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Component prop</title>
+
+  <script src="../js/vue.global.js"></script>
+  <!--<script src="https://unpkg.com/vue@next"></script>-->
+
+  <!--https://v3.cn.vuejs.org/guide/component-basics.html#%E9%80%9A%E8%BF%87-prop-%E5%90%91%E5%AD%90%E7%BB%84%E4%BB%B6%E4%BC%A0%E9%80%92%E6%95%B0%E6%8D%AE-->
+
+  <!--Prop 是你可以在组件上注册的一些自定义 attribute。-->
+  <!--为了给博文组件传递一个标题，我们可以用 props 选项将其包含在该组件可接受的 prop 列表中-->
+
+  <!--当一个值被传递给一个 prop attribute 时，它就成为该组件实例中的一个 property。-->
+  <!--该 property 的值可以在模板中访问，就像任何其他组件 property 一样。-->
+
+  <!--一个组件默认可以拥有任意数量的 prop，无论任何值都可以传递给 prop-->
+
+  <style type="text/css">
+    .demo {
+      font-family: sans-serif;
+      border: 1px solid #eee;
+      border-radius: 2px;
+      padding: 20px 30px;
+      margin-top: 1em;
+      margin-bottom: 40px;
+      user-select: none;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+<div id="app-blog-post" class="demo">
+  <blog-post title="My journey with Vue"></blog-post>
+  <blog-post title="Blogging with Vue"></blog-post>
+  <blog-post title="Why Vue is so fun"></blog-post>
+</div>
+
+</body>
+
+<!--suppress ES6ModulesDependencies -->
+<script>
+
+  const app = Vue.createApp({})
+
+  app.component('blog-post', {
+    props: ['title'],
+    template: `
+      <h4> {{ title }}</h4>
+    `
+  })
+
+  app.mount('#app-blog-post')
+
+</script>
+
+</html>
