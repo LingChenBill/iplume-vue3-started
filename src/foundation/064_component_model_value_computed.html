@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Component model value computed</title>
+
+  <script src="../js/vue.global.js"></script>
+  <!--<script src="https://unpkg.com/vue@next"></script>-->
+
+  <!--https://v3.cn.vuejs.org/guide/component-basics.html#%E5%9C%A8%E7%BB%84%E4%BB%B6%E4%B8%8A%E4%BD%BF%E7%94%A8-v-model-->
+
+  <!--在组件上使用 v-model-->
+  <!--在该组件中实现 v-model 的另一种方法是使用 computed property 的功能来定义 getter 和 setter。-->
+  <!--get 方法应返回 modelValue property，set 方法应该触发相应的事件-->
+
+  <style type="text/css">
+    .demo {
+      font-family: sans-serif;
+      border: 1px solid #eee;
+      border-radius: 2px;
+      padding: 20px 30px;
+      margin-top: 1em;
+      margin-bottom: 40px;
+      user-select: none;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+<div id="app-custom-model" class="demo">
+  <custom-input
+    :model-value="searchText"
+    @update:model-value="searchText = $event"
+  ></custom-input>
+
+  <!--现在 v-model 就应该可以在这个组件上完美地工作起来了-->
+  <br />
+  <custom-input v-model="searchText"></custom-input>
+
+</div>
+
+</body>
+
+<!--suppress ES6ModulesDependencies -->
+<script>
+  const App = {
+    data() {
+      return {
+        searchText: 'Search Value'
+      }
+    }
+  }
+
+  const app = Vue.createApp(App)
+
+  app.component('custom-input', {
+    props: ['modelValue'],
+    emits: ['update:modelValue'],
+    template: `
+      <input v-model="value">
+    `,
+    computed: {
+      value: {
+        get() {
+          return this.modelValue
+        },
+        set(value) {
+          this.$emit('update:modelValue', value)
+        }
+      }
+    }
+  })
+
+  app.mount('#app-custom-model')
+
+</script>
+
+</html>

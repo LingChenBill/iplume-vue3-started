@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Component model value</title>
+
+  <script src="../js/vue.global.js"></script>
+  <!--<script src="https://unpkg.com/vue@next"></script>-->
+
+  <!--https://v3.cn.vuejs.org/guide/component-basics.html#%E5%9C%A8%E7%BB%84%E4%BB%B6%E4%B8%8A%E4%BD%BF%E7%94%A8-v-model-->
+
+  <!--在组件上使用 v-model-->
+  <!--自定义事件也可以用于创建支持 v-model 的自定义输入组件-->
+
+  <!--为了让它正常工作，这个组件内的 <input> 必须-->
+  <!--将其 value attribute 绑定到一个名叫 modelValue 的 prop 上-->
+  <!--在其 input 事件被触发时，将新的值通过自定义的 update:modelValue 事件抛出-->
+
+  <style type="text/css">
+    .demo {
+      font-family: sans-serif;
+      border: 1px solid #eee;
+      border-radius: 2px;
+      padding: 20px 30px;
+      margin-top: 1em;
+      margin-bottom: 40px;
+      user-select: none;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+<div id="app-custom-model" class="demo">
+
+  <input v-model="searchText">
+  <!--等价于-->
+  <br />
+  <input :value="searchText" @input="searchText= $event.target.value">
+
+  <br />
+  <!--当用在组件上时,v-model则会这样-->
+  <custom-input
+    :model-value="searchText"
+    @update:model-value="searchText = $event"
+  ></custom-input>
+
+  <!--现在 v-model 就应该可以在这个组件上完美地工作起来了-->
+  <br />
+  <custom-input v-model="searchText"></custom-input>
+
+</div>
+
+</body>
+
+<!--suppress ES6ModulesDependencies -->
+<script>
+  const App = {
+    data() {
+      return {
+        searchText: 'Search Value'
+      }
+    }
+  }
+
+  const app = Vue.createApp(App)
+
+  app.component('custom-input', {
+    props: ['modelValue'],
+    emits: ['update:modelValue'],
+    template: `
+      <input
+        :value="modelValue"
+        @input="$emit('update:modelValue', $event.target.value)"
+      >
+    `
+  })
+
+  app.mount('#app-custom-model')
+
+</script>
+
+</html>
