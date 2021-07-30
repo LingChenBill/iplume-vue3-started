@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Prop v-bind</title>
+
+  <script src="../js/vue.global.js"></script>
+  <!--<script src="https://unpkg.com/vue@next"></script>-->
+
+  <!--https://v3.cn.vuejs.org/guide/component-props.html#%E4%BC%A0%E9%80%92%E9%9D%99%E6%80%81%E6%88%96%E5%8A%A8%E6%80%81%E7%9A%84-prop-->
+
+  <!--可以像这样给 prop 传入一个静态的值-->
+  <!--prop 可以通过 v-bind 或简写 : 动态赋值-->
+
+  <!--传入的值都是字符串类型的，但实际上任何类型的值都可以传给一个 prop-->
+
+</head>
+<body>
+
+<div id="app-blog-post">
+
+  <blog-post title="My Title"></blog-post>
+
+  <br />
+  <!--动态赋予一个变量的值.-->
+  <blog-post :title="post.title"></blog-post>
+
+  <br />
+  <!--动态赋予一个复杂表达式的值.-->
+  <blog-post :title="post.title + ' by ' + post.author.name"></blog-post>
+
+  <br />
+  <!--传入一个数字.-->
+  <!--即便 `42` 是静态的，我们仍然需要 `v-bind` 来告诉 Vue-->
+  <!--这是一个 JavaScript 表达式而不是一个字符串-->
+
+  <blog-post :likes="42"></blog-post>
+
+  <br />
+  <!--用一个变量进行动态赋值.-->
+  <blog-post :likes="post.likes"></blog-post>
+
+  <br />
+  <!--传入一个布尔值.-->
+  <blog-post is-published></blog-post>
+  <br />
+  <blog-post :is-published="false"></blog-post>
+  <br />
+  <blog-post :is-published="post.isPublished"></blog-post>
+
+  <br />
+  <!--传入一个数组.-->
+  <blog-post :comment-ids="[234, 266, 273]"></blog-post>
+  <br />
+  <blog-post :comment-ids="post.commentIds"></blog-post>
+
+  <br />
+  <!--传入一个对象.-->
+  <blog-post
+    :author="{
+      name: 'Veronica',
+      company: 'Veridian Dynamics'
+    }"></blog-post>
+
+  <br />
+  <!--用一个变量进行动态赋值-->
+  <blog-post :author="post.author"></blog-post>
+
+  <br />
+  <blog-post v-bind="post"></blog-post>
+
+</div>
+
+</body>
+
+<!--suppress ES6ModulesDependencies -->
+<script>
+
+  const app = Vue.createApp({
+    data () {
+      return {
+        post: {
+          id: 1,
+          title: 'My journey with Vue',
+          author: {
+            name: 'John',
+            company: 'Nan John'
+          },
+          likes: 20,
+          isPublished: true,
+          commentIds: [1, 2, 3]
+        }
+      }
+    }
+  })
+
+  app.component('blog-post', {
+    // props: ['title', 'likes'],
+    props: {
+      title: String,
+      likes: Number,
+      isPublished: Boolean,
+      commentIds: Array,
+      // author: Object,
+      author: {
+        name: String,
+        company: String
+      },
+      callback: Function,
+      // 任何其他构造函数.
+      contactsPromise: Promise
+    },
+    template: `
+      <span>{{ title + ' ' }}</span>
+      <span>{{ likes + ' ' }}</span>
+      <span>{{ isPublished + ' ' }} </span>
+      <span>{{ commentIds + ' ' }} </span>
+      <span> {{ JSON.stringify(author) + ' ' }}</span>
+    `
+  })
+
+  app.mount('#app-blog-post')
+
+</script>
+
+</html>
