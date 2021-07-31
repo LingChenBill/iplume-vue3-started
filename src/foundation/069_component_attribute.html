@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Component attribute</title>
+
+  <script src="../js/vue.global.js"></script>
+  <!--<script src="https://unpkg.com/vue@next"></script>-->
+
+  <!--https://v3.cn.vuejs.org/guide/component-attrs.html#attribute-%E7%BB%A7%E6%89%BF-->
+
+  <!--一个非 prop 的 attribute 是指传向一个组件，但是该组件并没有相应 props 或 emits 定义的 attribute。-->
+  <!--常见的示例包括 class、style 和 id 属性-->
+
+  <!--当组件返回单个根节点时，非 prop attribute 将自动添加到根节点的 attribute 中-->
+  <!--如果我们需要通过 data status property 定义 <date-picker> 组件的状态，它将应用于根节点 (即 div.date-picker)-->
+
+  <!--同样的规则也适用于事件监听器-->
+
+  <!--在这种情况下，change 事件监听器从父组件传递到子组件，它将在原生 select 的 change 事件上触发。-->
+  <!-- 我们不需要显式地从 date-picker 发出事件-->
+
+</head>
+<body>
+
+  <div id="app-date-picker">
+    <!--具有非prop attribute的Date-picker组件-->
+    <date-picker data-status="activated"></date-picker>
+
+    <br />
+    <date-picker @change="submitChange"></date-picker>
+
+    <br />
+    <date-select @change="showChange"></date-select>
+  </div>
+
+</body>
+
+<!--suppress ES6ModulesDependencies -->
+<script>
+
+  const app = Vue.createApp({
+    data() {
+      return {
+        activated: false
+      }
+    },
+    methods: {
+      submitChange() {
+        alert(this.$attrs)
+      },
+      showChange(event) {
+        // 将记录所选项的值.
+        alert(event.target.value)
+      }
+    }
+  })
+
+  app.component('date-picker', {
+    created() {
+      console.log(this.$attrs)
+    },
+    template: `
+      <div class="data-picker">
+        <input type="datetime-local" />
+      </div>
+    `
+  })
+
+  app.component('date-select', {
+    template: `
+      <select>
+        <option value="1">Yesterday</option>
+        <option value="2">Today</option>
+        <option value="3">Tomorrow</option>
+      </select>
+    `
+  })
+
+  app.mount('#app-date-picker')
+
+</script>
+
+</html>

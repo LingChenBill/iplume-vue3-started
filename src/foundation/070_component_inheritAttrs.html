@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Component inheritAttrs</title>
+
+  <script src="../js/vue.global.js"></script>
+  <!--<script src="https://unpkg.com/vue@next"></script>-->
+
+  <!--https://v3.cn.vuejs.org/guide/component-attrs.html#%E7%A6%81%E7%94%A8-attribute-%E7%BB%A7%E6%89%BF-->
+
+  <!--如果你不希望组件的根元素继承 attribute，你可以在组件的选项中设置 inheritAttrs: false。-->
+  <!--禁用 attribute 继承的常见情况是需要将 attribute 应用于根节点之外的其他元素-->
+  <!--通过将 inheritAttrs 选项设置为 false，-->
+  <!--你可以访问组件的 $attrs property，该 property 包括组件 props 和 emits property 中未包含的所有属性-->
+
+  <!--使用上一节中的 date-picker 组件示例，-->
+  <!--如果需要将所有非 prop attribute 应用于 input 元素而不是根 div 元素，则可以使用 v-bind 缩写来完成-->
+
+</head>
+<body>
+  <div id="app-comp-inheritAttrs">
+    <!--Date-picker 组件 使用非 prop attribute-->
+    <date-picker data-status="activated"></date-picker>
+  </div>
+
+</body>
+
+<!--suppress ES6ModulesDependencies -->
+<script>
+
+  const app = Vue.createApp({
+    data() {
+      return {
+        activated: false
+      }
+    }
+  })
+
+  app.component('date-picker', {
+    // 你不希望组件的根元素继承 attribute，你可以在组件的选项中设置 inheritAttrs: false.`
+    inheritAttrs: false,
+    template: `
+      <div class="date-picker">
+        <input type="datetime-local" v-bind="$attrs" />
+      </div>
+    `
+  })
+
+  app.mount('#app-comp-inheritAttrs')
+
+</script>
+
+</html>

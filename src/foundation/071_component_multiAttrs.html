@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Component multi-attributes</title>
+
+  <script src="../js/vue.global.js"></script>
+  <!--<script src="https://unpkg.com/vue@next"></script>-->
+
+  <!--https://v3.cn.vuejs.org/guide/component-attrs.html#%E5%A4%9A%E4%B8%AA%E6%A0%B9%E8%8A%82%E7%82%B9%E4%B8%8A%E7%9A%84-attribute-%E7%BB%A7%E6%89%BF-->
+
+  <!--多个根节点上的 Attribute 继承-->
+  <!--与单个根节点组件不同，具有多个根节点的组件不具有自动 attribute 回退行为。如果未显式绑定 $attrs，将发出运行时警告-->
+
+</head>
+<body>
+
+  <div id="app-comp-multi-attrs">
+    <custom-layout id="custom-layout" @click="changeValue"></custom-layout>
+    <br />
+    <custom-layout-multi id="custom-layout" @click="changeValue"></custom-layout-multi>
+  </div>
+
+</body>
+
+<!--suppress ES6ModulesDependencies -->
+<script>
+
+  const app = Vue.createApp({
+    methods: {
+      changeValue() {
+        alert('This changeValue')
+      }
+    }
+  })
+
+  // 这将发出警告.
+  app.component('custom-layout', {
+    template: `
+      <header>Header</header>
+      <main>Main</main>
+      <footer>Footer</footer>
+    `
+  })
+
+  // 没有警告，$attrs被传递到<main>元素.
+  app.component('custom-layout-multi', {
+    template: `
+      <header>Header</header>
+      <main v-bind="$attrs">Main</main>
+      <footer>Footer</footer>
+    `
+  })
+
+  app.mount('#app-comp-multi-attrs')
+
+  // Vue.createApp(Counter).mount('#counter')
+
+</script>
+
+</html>

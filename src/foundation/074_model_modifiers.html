@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Model modifiers</title>
+
+  <script src="../js/vue.global.js"></script>
+  <!--<script src="https://unpkg.com/vue@next"></script>-->
+
+  <!--https://v3.cn.vuejs.org/guide/component-custom-events.html#%E5%A4%84%E7%90%86-v-model-%E4%BF%AE%E9%A5%B0%E7%AC%A6-->
+
+  <!--我们已经设置了 prop，我们可以检查 modelModifiers 对象键并编写一个处理器来更改发出的值。-->
+  <!--在下面的代码中，每当 <input/> 元素触发 input 事件时，我们都将字符串大写-->
+
+  <!--让我们创建一个示例自定义修饰符 capitalize，它将 v-model 绑定提供的字符串的第一个字母大写。-->
+
+  <!--添加到组件 v-model 的修饰符将通过 modelModifiers prop 提供给组件。-->
+  <!--在下面的示例中，我们创建了一个组件，其中包含默认为空对象的 modelModifiers prop-->
+
+  <!--对于带参数的 v-model 绑定，生成的 prop 名称将为 arg + "Modifiers"-->
+
+</head>
+<body>
+
+<div id="app-modifiers">
+  <my-component v-model.capitalize="myText"></my-component>
+  {{ myText }}
+
+  <br />
+  <my-modifiers v-model:description.capitalize="myText"></my-modifiers>
+  {{ myText }}
+</div>
+
+</body>
+
+<!--suppress ES6ModulesDependencies -->
+<script>
+
+  const app = Vue.createApp({
+    data() {
+      return {
+        myText: ''
+      }
+    }
+  })
+
+  app.component('my-component', {
+    props: {
+      modelValue: String,
+      modelModifiers: {
+        default: () => ({})
+      }
+    },
+    emits: ['update:modelValue'],
+    methods: {
+      emitValue(e) {
+        let value = e.target.value
+        if (this.modelModifiers.capitalize) {
+          // 首字母大写.
+          value = value.charAt(0).toUpperCase() + value.slice(1)
+        }
+        this.$emit('update:modelValue', value)
+      }
+    },
+    template: `
+      <input type="text"
+        :value="modelValue"
+        @input="emitValue">
+    `,
+    // template: `
+    //   <input type="text"
+    //     :value="modelValue"
+    //     @input="$emit('update:modelValue', $event.target.value)">
+    // `,
+    created() {
+      console.log(this.modelModifiers)
+    }
+  })
+
+  app.component('my-modifiers', {
+    props: ['description', 'descriptionModifiers'],
+    emits: ['update:description'],
+    template: `
+      <input type="text"
+        :value="description"
+        @input="$emit('update:description', $event.target.value)"
+      >
+    `,
+    created() {
+      console.log(this.descriptionModifiers)
+    }
+  })
+
+  app.mount('#app-modifiers')
+
+</script>
+
+</html>
