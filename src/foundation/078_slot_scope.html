@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Slot scope</title>
+
+  <script src="../js/vue.global.js"></script>
+  <!--<script src="https://unpkg.com/vue@next"></script>-->
+
+  <!--https://v3.cn.vuejs.org/guide/component-slots.html#%E4%BD%9C%E7%94%A8%E5%9F%9F%E6%8F%92%E6%A7%BD-->
+
+  <!--作用域插槽-->
+
+  <!--有时让插槽内容能够访问子组件中才有的数据是很有用的。-->
+  <!--当一个组件被用来渲染一个项目数组时，这是一个常见的情况，我们希望能够自定义每个项目的渲染方式。-->
+
+  <!--可能会想把 {{ item }} 替换为 <slot>，以便在父组件上自定义-->
+
+  <!--但是，这是行不通的，因为只有 <todo-list> 组件可以访问 item，我们将从其父组件提供槽内容。-->
+  <!--要使 item 可用于父级提供的插槽内容，我们可以添加一个 <slot> 元素并将其绑定为属性-->
+
+  <!--根据自己的需要将很多的 attribute 绑定到 slot 上-->
+  <!--绑定在 <slot> 元素上的 attribute 被称为插槽 prop。现在在父级作用域中，我们可以使用带值的 v-slot 来定义我们提供的插槽 prop 的名字-->
+  <!--我们选择将包含所有插槽 prop 的对象命名为 slotProps，但你也可以使用任意你喜欢的名字-->
+
+</head>
+<body>
+
+<div id="app-slot-scope">
+  <todo-list>
+    <i class="fas fa-check">
+      <span class="green">{{ item }}</span>
+    </i>
+  </todo-list>
+
+  <br />
+  <todo-list>
+    <template v-slot:default="slotProps">
+      <i class="fas fa-check"></i>
+      <span class="green">{{ slotProps.item }}</span>
+    </template>
+  </todo-list>
+
+</div>
+
+</body>
+
+<!--suppress ES6ModulesDependencies -->
+<script>
+
+  const app = Vue.createApp({})
+
+  app.component('todo-list', {
+    data() {
+      return {
+        items: ['Feed a cat', 'Buy milk']
+      }
+    },
+    // template: `
+    //   <ul>
+    //     <li v-for="(item, index) in items">
+    //       {{ item }}
+    //     </li>
+    //   </ul>
+    // `
+    template: `
+        <ul>
+          <li v-for="(item, index) in items">
+            <slot :item="item"></slot>
+          </li>
+        </ul>
+      `
+  })
+
+  app.mount('#app-slot-scope')
+
+</script>
+
+</html>

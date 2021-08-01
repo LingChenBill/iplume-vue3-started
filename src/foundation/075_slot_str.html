@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Slot string</title>
+
+  <script src="../js/vue.global.js"></script>
+  <!--<script src="https://unpkg.com/vue@next"></script>-->
+
+  <!--https://v3.cn.vuejs.org/guide/component-slots.html#%E6%8F%92%E6%A7%BD%E5%86%85%E5%AE%B9-->
+
+  <!--插槽内容.-->
+  <!--Vue 实现了一套内容分发的 API，这套 API 的设计灵感源自 Web Components 规范草案，将 <slot> 元素作为承载分发内容的出口-->
+  <!--当组件渲染的时候，<slot></slot> 将会被替换为“Add Todo”-->
+
+  <!--字符串只是开始！插槽还可以包含任何模板代码，包括 HTML-->
+
+  <!--如果 <todo-button> 的 template 中没有包含一个 <slot> 元素，则该组件起始标签和结束标签之间的任何内容都会被抛弃-->
+
+  <!--渲染作用域-->
+  <!--当你想在一个插槽中使用数据时-->
+  <!--该插槽可以访问与模板其余部分相同的实例 property (即相同的“作用域”)-->
+
+  <!--父级模板里的所有内容都是在父级作用域中编译的；子模板里的所有内容都是在子作用域中编译的-->
+
+</head>
+<body>
+
+<div id="slot-btn">
+  <todo-btn>
+    Add todo
+  </todo-btn>
+
+  <br />
+  <todo-btn>
+    <i class="fas fa-plus"></i>
+    Add todo
+  </todo-btn>
+
+  <br />
+  <todo-btn>
+    <font-awesome-icon name="plus"></font-awesome-icon>
+    Add todo
+  </todo-btn>
+
+  <br />
+  <todo-no-slot>
+    <!--以下文本不会渲染-->
+    Add todo
+  </todo-no-slot>
+
+  <br />
+  <todo-btn>
+    Delete a {{ item.name }}
+  </todo-btn>
+</div>
+
+</body>
+
+<!--suppress ES6ModulesDependencies -->
+<script>
+
+  const app = Vue.createApp({
+    data() {
+      return {
+        item: {
+          name: 'First Item'
+        }
+      }
+    }
+  })
+
+  // todo-btn的组件模板.
+  app.component('todo-btn', {
+    template: `
+      <button class="btn-primary">
+        <slot></slot>
+      </button>
+    `
+  })
+
+  app.component('todo-no-slot', {
+    template: `
+      <button class="btn-primary">
+        Create a new item
+      </button>
+    `
+  })
+
+  app.mount('#slot-btn')
+
+</script>
+
+</html>
