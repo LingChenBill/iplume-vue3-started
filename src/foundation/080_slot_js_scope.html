@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Slot js scope</title>
+
+  <script src="../js/vue.global.js"></script>
+  <!--<script src="https://unpkg.com/vue@next"></script>-->
+
+  <!--https://v3.cn.vuejs.org/guide/component-slots.html#%E8%A7%A3%E6%9E%84%E6%8F%92%E6%A7%BD-prop-->
+
+  <!--解构插槽 Prop-->
+
+  <!--作用域插槽的内部工作原理是将你的插槽内容包括在一个传入单个参数的函数里-->
+  <!--这意味着 v-slot 的值实际上可以是任何能够作为函数定义中的参数的 JavaScript 表达式。你也可以使用 ES2015 解构来传入具体的插槽 prop-->
+
+  <!--这样可以使模板更简洁，尤其是在该插槽提供了多个 prop 的时候。它同样开启了 prop 重命名等其它可能，例如将 item 重命名为 todo-->
+
+</head>
+<body>
+
+<div id="app-slot-js-scope">
+  <todo-list v-slot="{ item }">
+    <i class="fas fa-check"></i>
+    <span class="green">{{ item }}</span>
+  </todo-list>
+
+  <br />
+
+  <todo-list v-slot="{ item: todo }">
+    <i class="fas fa-check"></i>
+    <span class="green">{{ todo }}</span>
+  </todo-list>
+
+  <br />
+  <!--你甚至可以定义备用内容，用于插槽 prop 是 undefined 的情形-->
+  <todo-list v-slot="{ item = 'placeholder' }">
+    <i class="fas fa-check"></i>
+    <span class="green">{{ item }}</span>
+  </todo-list>
+
+</div>
+
+</body>
+
+<!--suppress ES6ModulesDependencies -->
+<script>
+
+  const app = Vue.createApp({})
+
+  app.component('todo-list', {
+    data() {
+      return {
+        items: ['Feed a cat', 'Buy milk']
+      }
+    },
+    template: `
+        <ul>
+          <li v-for="(item, index) in items">
+            <slot :item="item"></slot>
+          </li>
+        </ul>
+      `
+  })
+
+  app.mount('#app-slot-js-scope')
+
+</script>
+
+</html>

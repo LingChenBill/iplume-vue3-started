@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Component provide</title>
+
+  <script src="../js/vue.global.js"></script>
+  <!--<script src="https://unpkg.com/vue@next"></script>-->
+
+  <!--https://v3.cn.vuejs.org/guide/component-provide-inject.html#%E5%A4%84%E7%90%86%E5%93%8D%E5%BA%94%E6%80%A7-->
+
+  <!--当我们需要从父组件向子组件传递数据时，我们使用 props-->
+  <!--有一些深度嵌套的组件，而深层的子组件只需要父组件的部分内容。在这种情况下，如果仍然将 prop 沿着组件链逐级传递下去，可能会很麻烦-->
+
+  <!--对于这种情况，我们可以使用一对 provide 和 inject。无论组件层次结构有多深，父组件都可以作为其所有子组件的依赖提供者。-->
+  <!--这个特性有两个部分：父组件有一个 provide 选项来提供数据，子组件有一个 inject 选项来开始使用这些数据-->
+
+  <!--这使我们能够更安全地继续开发该组件，而不必担心可能会更改/删除子组件所依赖的某些内容。这些组件之间的接口仍然是明确定义的，就像 prop 一样。-->
+
+  <!--实际上，你可以将依赖注入看作是“long range props”，除了：-->
+
+  <!--父组件不需要知道哪些子组件使用它 provide 的 property-->
+  <!--子组件不需要知道 inject 的 property 来自哪里-->
+
+
+</head>
+<body>
+
+<div id="app-component-provide">
+  <todo-list></todo-list>
+</div>
+
+</body>
+
+<!--suppress ES6ModulesDependencies -->
+<script>
+
+  const app = Vue.createApp({})
+
+
+  const todoItem = ``
+  const todoListFooter = ``
+  const clearTodosButton = ``
+  const todoListStatistics = ``
+
+  app.component(todoItem)
+  app.component(todoListFooter)
+  app.component(clearTodosButton)
+
+  app.component('todo-list-statistics', {
+    inject: ['user'],
+    created() {
+      console.log(`Injected property: ${this.user}`)
+    }
+  })
+
+  app.component('todo-list', {
+    data() {
+      return {
+        todos: ['Feed a cat', 'Buy tickets']
+      }
+    },
+    provide: {
+      user: 'John Doe'
+    },
+    components: {
+      todoItem, todoListFooter, clearTodosButton, todoListStatistics
+    },
+    template: `
+      <div>
+        {{ todos.length }}
+        <todo-item></todo-item>
+        <todo-list-footer>
+          <clear-todos-button></clear-todos-button>
+          <todo-list-statistics></todo-list-statistics>
+        </todo-list-footer>
+      </div>
+    `
+  })
+
+
+  app.mount('#app-component-provide')
+
+</script>
+
+</html>
