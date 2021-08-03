@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Define async component</title>
+
+  <script src="../js/vue.global.js"></script>
+  <!--<script src="https://unpkg.com/vue@next"></script>-->
+
+  <!--https://v3.cn.vuejs.org/guide/component-dynamic-async.html#%E5%BC%82%E6%AD%A5%E7%BB%84%E4%BB%B6-->
+
+  <!--在大型应用中，我们可能需要将应用分割成小一些的代码块，并且只在需要的时候才从服务器加载一个模块。-->
+  <!--为了简化，Vue 有一个 defineAsyncComponent 方法-->
+
+
+</head>
+<body>
+
+<div id="app-async-component">
+  <async-example></async-example>
+</div>
+
+</body>
+
+<!--suppress ES6ModulesDependencies -->
+<script>
+
+  const { createApp, defineAsyncComponent } = Vue
+
+  const app = createApp({})
+
+  // 此方法接受返回 Promise 的工厂函数。从服务器检索组件定义后，应调用 Promise 的 resolve 回调。
+  // 你也可以调用 reject(reason)，来表示加载失败
+  const asyncComp = defineAsyncComponent(
+    () =>
+      new Promise((resolve, reject) => {
+        resolve({
+          template: '<div>I am async!</div>'
+        })
+      })
+  )
+
+  app.component('async-example', asyncComp)
+
+  app.mount('#app-async-component')
+
+</script>
+
+</html>
