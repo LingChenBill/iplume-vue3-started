@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mouseover style</title>
+
+  <script src="../js/vue.global.js"></script>
+  <!--<script src="https://unpkg.com/vue@next"></script>-->
+
+  <!--https://v3.cn.vuejs.org/guide/transitions-overview.html#%E8%BF%87%E6%B8%A1%E4%B8%8E-style-%E7%BB%91%E5%AE%9A-->
+
+  <!--一些过渡效果可以通过插值的方式来实现，例如在发生交互时将样式绑定到元素上-->
+  <!--我们是通过使用插值来创建动画，将触发条件添加到鼠标的移动过程上。-->
+  <!--同时将 CSS 过渡属性应用在元素上，让元素知道在更新时要使用什么过渡效果-->
+
+  <style type="text/css">
+    #app-mouseover-style {
+      width: 100vw;
+      height: 100vh;
+    }
+
+    .movearea {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      padding: 6vmin;
+      transition: 0.2s background-color ease;
+    }
+  </style>
+
+</head>
+<body>
+
+<div id="app-mouseover-style">
+  <div
+    @mouseover="xCoordinate"
+    :style="{ backgroundColor: `hsl(${x}, 80%, 50%)` }"
+    class="movearea"
+  >
+    <h3>Move your mouse across the screen...</h3>
+    <p>x: {{ x }}</p>
+  </div>
+</div>
+
+</body>
+
+<!--suppress ES6ModulesDependencies -->
+<script>
+
+  const app = Vue.createApp({
+    data() {
+      return {
+        x: 0
+      }
+    },
+    methods: {
+      xCoordinate(e) {
+        this.x = e.clientX
+      }
+    }
+  })
+
+  app.mount('#app-mouseover-style')
+
+</script>
+
+</html>
