@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Transition css</title>
+
+  <script src="../js/vue.global.js"></script>
+  <!--<script src="https://unpkg.com/vue@next"></script>-->
+
+  <!--https://v3.cn.vuejs.org/guide/transitions-enterleave.html#css-%E8%BF%87%E6%B8%A1-->
+
+  <!--常用的过渡都是使用 CSS 过渡-->
+
+  <style type="text/css">
+    body {
+      margin: 30px;
+    }
+
+    /* 可以设置不同的进入和离开动画   */
+    /* 设置持续时间和动画函数        */
+    .slide-fade-enter-active {
+      transition: all 0.3s ease-out;
+    }
+
+    .slide-fade-leave-active {
+      transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+    }
+
+    .slide-fade-enter-from,
+    .slide-fade-leave-to {
+      transform: translateX(20px);
+      opacity: 0;
+    }
+  </style>
+
+</head>
+<body>
+
+<div id="app-transition-css">
+  <button @click="show = !show">
+    Toggle render
+  </button>
+
+  <transition name="slide-fade">
+    <p v-if="show">hello slide fade!</p>
+  </transition>
+</div>
+
+</body>
+
+<!--suppress ES6ModulesDependencies -->
+<script>
+
+  const TransitionCss = {
+    data() {
+      return {
+        show: true
+      }
+    }
+  }
+
+  Vue.createApp(TransitionCss).mount('#app-transition-css')
+
+</script>
+
+</html>
